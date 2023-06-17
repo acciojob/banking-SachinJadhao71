@@ -6,6 +6,14 @@ public class BankAccount {
     private double balance;
     private double minBalance;
 
+    CurrentAccount currentAccount;
+    SavingsAccount savingsAccount;
+
+    StudentAccount studentAccount;
+
+    public BankAccount() {
+    }
+
     public String getName() {
         return name;
     }
