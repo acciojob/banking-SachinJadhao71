@@ -6,10 +6,6 @@ public class BankAccount {
     private double balance;
     private double minBalance;
 
-    CurrentAccount currentAccount;
-    SavingsAccount savingsAccount;
-
-    StudentAccount studentAccount;
 
     public BankAccount() {
     }
@@ -43,26 +39,36 @@ public class BankAccount {
             this.balance = balance;
             this.minBalance = minBalance;
     }
-    int sumofdigit = 0;
-    public void isPossible(int digit){
-        if(digit==0) return;
 
-        sumofdigit += digit%10;
-
-        isPossible(digit/10);
-    }
     public String generateAccountNumber(int digits, int sum) throws Exception{
-       isPossible(digits);
-
-       if(sumofdigit != sum){
-           throw new Exception("Account Number can not be generated");
-       }
-
         //Each digit of an account number can lie between 0 and 9 (both inclusive)
         //Generate account number having given number of 'digits' such that the sum of digits is equal to 'sum'
         //If it is not possible, throw "Account Number can not be generated" exception
+        if(sum > digits * 9){
+            throw new Exception("Account Number can not be generated");
+        }
 
-        return null;
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+
+        while(sum > 0){
+            if(sum >= 9){
+                sb.append(9);
+                sum -= 9;
+            }
+            else{
+                sb.append(sum);
+                sum = 0;
+            }
+            count++;
+        }
+
+        while(count < digits){
+            sb.append(0);
+            count++;
+        }
+
+        return sb.toString();
     }
 
     public void deposit(double amount) {
@@ -72,7 +78,7 @@ public class BankAccount {
 
     public void withdraw(double amount) throws Exception {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-        if(this.minBalance < amount){
+        if(getBalance()-amount < getMinBalance()){
             throw new Exception("Insufficient Balance");
         }
 

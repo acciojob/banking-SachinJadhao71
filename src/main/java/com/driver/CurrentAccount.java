@@ -1,7 +1,7 @@
 package com.driver;
 
 public class CurrentAccount extends BankAccount{
-    String tradeLicenseId; //consists of Uppercase English characters only
+    private String tradeLicenseId; //consists of Uppercase English characters only
 
     public String getTradeLicenseId() {
         return tradeLicenseId;
@@ -27,14 +27,25 @@ public class CurrentAccount extends BankAccount{
         // If the characters of the license Id can be rearranged to create any valid license Id
         // If it is not possible, throw "Valid License can not be generated" Exception
 
-        String s = this.tradeLicenseId;
+        int temp = 0;
+        String s = getTradeLicenseId();
+        int n = s.length();
 
-        for(int i =1; i<s.length(); i++){
-            if(s.charAt(i)==s.charAt(i-1)){
-                throw new Exception("Valid License can not be generated");
+        for(int i=0; i<n-1; i++){
+            if(s.charAt(i)==s.charAt(i+1)){
+                break;
+            }
+            else{
+                temp++;
             }
         }
 
+        if(temp == n-1){
+            return;
+        }
+        else{
+            throw new Exception("Valid License can not be generated");
+        }
     }
 
 }

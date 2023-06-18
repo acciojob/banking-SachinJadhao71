@@ -36,11 +36,7 @@ public class SavingsAccount extends BankAccount{
             throw new Exception("Insufficient Balance");
         }
         else{
-            double curr = this.getBalance();
-
-            curr -= amount;
-            this.setBalance(curr);
-
+           super.withdraw(amount);
         }
 
 
